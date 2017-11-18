@@ -41,7 +41,7 @@ public class Jury_Pool2 {
 	}
 	int[] calcPool2List(Jury_Relation2Graph jG) {
 		int[] poolList = new int[juryPool2Size];
-		ArrayList<Candidate> pool = new ArrayList<>();
+		/*ArrayList<Candidate> pool = new ArrayList<>();
 		ArrayList<Candidate> rejectedPool = new ArrayList<>();
 		for (Candidate x : jG.candidate_List2){
 			if(!rejectedPool.contains(x)){
@@ -56,9 +56,9 @@ public class Jury_Pool2 {
 		 * It is suggested that you create some classes and methods of your own and call them here. This 
 		 * method and the one preceding can be considered 'wrapper' methods. 
 		 */
-		for(int i = 0; i < pool.size()-1; i++){
+		/*for(int i = 0; i < pool.size()-1; i++){
 			poolList[0] = pool.get(i).id;
-		}
+		}*/
 		return poolList;
 	}
 

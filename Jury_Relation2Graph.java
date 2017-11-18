@@ -27,19 +27,33 @@ public class Jury_Relation2Graph {
 	ArrayList<Candidate> makeRelation2Graph(JuryGraph jG){
 		ArrayList<Candidate> canList2 = new ArrayList<>();
 		HashMap<Candidate, ArrayList<Candidate>> temp = new HashMap<>();
-		for(Candidate z : jG.candidate_List){
-			temp.put(z, z.adj_List);
+
+		for(Candidate a : jG.candidate_List){
+			temp.put(a, makeCopy(a.adj_List) );
 		}
-		for (Candidate x : jG.candidate_List){
+
+		/*HashMap<Candidate, ArrayList<Candidate>> temp = new HashMap<>();
+		for(Candidate z : makeCopy(jG.candidate_List)){
+			temp.put(z, makeCopy(z.adj_List));
+			/*for(Candidate m: z.adj_List){
+				System.out.print(m.id+ ",");
+			}
+			System.out.println("List");*/
+		/*}
+		/*for (Candidate x : makeCopy(jG.candidate_List)){
 			canList2.add(x);
-			for(Candidate y : x.adj_List){
+			for(Candidate y : makeCopy(x.adj_List)){
 				ArrayList<Candidate> tmp = new ArrayList<>();
 				for(Candidate z : y.adj_List){
 					if(!temp.get(x).contains(z)){
 						tmp.add(z);
 					}
 				}
-				temp.put(x, tmp);
+				/*for (Candidate a : tmp){
+					System.out.print(a.id+",");
+				}*/
+				/*System.out.println("List");
+				temp.get(x).addAll(tmp);
 			}
 		}
 		for(Candidate a : temp.keySet()){
@@ -47,20 +61,62 @@ public class Jury_Relation2Graph {
 				x.adj_List.addAll(temp.get(a));
 			}
 		}
+		for(Candidate a : jG.candidate_List){
+			ArrayList<Candidate> tmp = new ArrayList<>();
+			for (Candidate x : a.adj_List){
+				if(!tmp.contains(x)){
+					tmp.add(x);
+				}
 
+			}
+			a.adj_List.clear();
+			a.adj_List.addAll(tmp);
+		}*/
+
+
+
+		for(Candidate x : makeCopy(jG.candidate_List)){
+			for(Candidate y : makeCopy(x.adj_List)){
+				for (Candidate z : y.adj_List){
+					if(!x.adj_List.contains(z) && z != x)
+						temp.get(x).add(z);
+				}
+			}
+		}
+
+		for(Candidate x : jG.candidate_List){
+			x.adj_List.addAll(temp.get(x));
+			System.out.print(x.id +":");
+			for (Candidate y : x.adj_List){
+
+				System.out.print(y.id +",");
+			}
+			System.out.println("List");
+		}
 		/*
 		 * Your code goes here. The input is graph representing direct relations among 
 		 * candidates. You have to make new adjacency lists for each vertex reflecting 2-relations.
 		 */
 		return canList2;
 	}
-	
+	ArrayList<Candidate> makeCopy(ArrayList<Candidate> original){
+		ArrayList<Candidate> copy = new ArrayList<>();
+		for (Candidate x : original){
+			copy.add(x);
+		}
+		return copy;
+	}
+
 	int[]  computeDegrees(ArrayList<Candidate> cList2) {
 		int[] degAr = new int[graphSize];
-		for(int i = 0; i < cList2.size()-1; i++){
+		for(int i = 0; i < cList2.size()-1; i++) {
 			degAr[i] = cList2.get(i).adj_List.size();
-			for(Candidate m : cList2.get(i).adj_List){
-				System.out.print("Edge" + m.id + ',');
+		}
+		/*for (Candidate m : cList2) {
+			System.out.print(m.id+":");
+			for (Candidate n : m.adj_List) {
+
+				System.out.print(n.id + ",");
 			}
 			System.out.println("list");
 		}
