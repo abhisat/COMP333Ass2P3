@@ -29,51 +29,9 @@ public class Jury_Relation2Graph {
 		HashMap<Candidate, ArrayList<Candidate>> temp = new HashMap<>();
 
 		for(Candidate a : jG.candidate_List){
+			canList2.add(a);
 			temp.put(a, makeCopy(a.adj_List) );
 		}
-
-		/*HashMap<Candidate, ArrayList<Candidate>> temp = new HashMap<>();
-		for(Candidate z : makeCopy(jG.candidate_List)){
-			temp.put(z, makeCopy(z.adj_List));
-			/*for(Candidate m: z.adj_List){
-				System.out.print(m.id+ ",");
-			}
-			System.out.println("List");*/
-		/*}
-		/*for (Candidate x : makeCopy(jG.candidate_List)){
-			canList2.add(x);
-			for(Candidate y : makeCopy(x.adj_List)){
-				ArrayList<Candidate> tmp = new ArrayList<>();
-				for(Candidate z : y.adj_List){
-					if(!temp.get(x).contains(z)){
-						tmp.add(z);
-					}
-				}
-				/*for (Candidate a : tmp){
-					System.out.print(a.id+",");
-				}*/
-				/*System.out.println("List");
-				temp.get(x).addAll(tmp);
-			}
-		}
-		for(Candidate a : temp.keySet()){
-			for(Candidate x : jG.candidate_List){
-				x.adj_List.addAll(temp.get(a));
-			}
-		}
-		for(Candidate a : jG.candidate_List){
-			ArrayList<Candidate> tmp = new ArrayList<>();
-			for (Candidate x : a.adj_List){
-				if(!tmp.contains(x)){
-					tmp.add(x);
-				}
-
-			}
-			a.adj_List.clear();
-			a.adj_List.addAll(tmp);
-		}*/
-
-
 
 		for(Candidate x : makeCopy(jG.candidate_List)){
 			for(Candidate y : makeCopy(x.adj_List)){
@@ -85,13 +43,11 @@ public class Jury_Relation2Graph {
 		}
 
 		for(Candidate x : jG.candidate_List){
-			x.adj_List.addAll(temp.get(x));
-			System.out.print(x.id +":");
-			for (Candidate y : x.adj_List){
-
-				System.out.print(y.id +",");
+			for (Candidate a : temp.get(x)){
+				if (!x.adj_List.contains(a)){
+					x.adj_List.add(a);
+				}
 			}
-			System.out.println("List");
 		}
 		/*
 		 * Your code goes here. The input is graph representing direct relations among 
@@ -108,17 +64,9 @@ public class Jury_Relation2Graph {
 	}
 
 	int[]  computeDegrees(ArrayList<Candidate> cList2) {
-		int[] degAr = new int[graphSize];
-		for(int i = 0; i < cList2.size()-1; i++) {
+		int[] degAr = new int[graphSize + 1];
+		for(int i = 1; i < cList2.size(); i++) {
 			degAr[i] = cList2.get(i).adj_List.size();
-		}
-		/*for (Candidate m : cList2) {
-			System.out.print(m.id+":");
-			for (Candidate n : m.adj_List) {
-
-				System.out.print(n.id + ",");
-			}
-			System.out.println("list");
 		}
 		/*
 		 * Your code goes here. It is quite straightforward to compute array 

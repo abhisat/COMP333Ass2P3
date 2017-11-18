@@ -29,6 +29,8 @@ public class Jury_Pool2 {
 	
 	int calcPool2size(Jury_Relation2Graph jG) {
 		int poolSize = 0;
+
+		poolSize = getPool(jG).size();
 		
 		/*Your code goes here. 
 		The variable poolSize is given as a suggestion. You are free to change it if you wish.
@@ -41,14 +43,7 @@ public class Jury_Pool2 {
 	}
 	int[] calcPool2List(Jury_Relation2Graph jG) {
 		int[] poolList = new int[juryPool2Size];
-		/*ArrayList<Candidate> pool = new ArrayList<>();
-		ArrayList<Candidate> rejectedPool = new ArrayList<>();
-		for (Candidate x : jG.candidate_List2){
-			if(!rejectedPool.contains(x)){
-				pool.add(x);
-				rejectedPool.addAll(x.adj_List);
-			}
-		}
+
 		/*Your code goes here. 
 		 * We have an integer array poolList. To create this array you will have to calculate 
 		 * juryPoolSize first. You can change it. But make sure the function returns an array 
@@ -56,11 +51,23 @@ public class Jury_Pool2 {
 		 * It is suggested that you create some classes and methods of your own and call them here. This 
 		 * method and the one preceding can be considered 'wrapper' methods. 
 		 */
-		/*for(int i = 0; i < pool.size()-1; i++){
-			poolList[0] = pool.get(i).id;
-		}*/
+
+		for (int i = 1; i < getPool(jG).size(); i++){
+			poolList[i] = getPool(jG).get(i).id;
+		}
+
 		return poolList;
 	}
 
-	
+	ArrayList<Candidate> getPool(Jury_Relation2Graph jG){
+		ArrayList<Candidate> pool = new ArrayList<>();
+		ArrayList<Candidate> rejectedPool = new ArrayList<>();
+		for (Candidate x : jG.candidate_List2){
+			if(!rejectedPool.contains(x)){
+				pool.add(x);
+				rejectedPool.addAll(x.adj_List);
+			}
+		}
+		return pool;
+	}
 }
